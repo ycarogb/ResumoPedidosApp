@@ -4,5 +4,5 @@ namespace ResumoPedidos.Services;
 
 public interface IProdutoService
 {
-    Produto CreateProduto(string descricao, decimal valor);
+    Produto CadastrarProduto(string descricao, decimal valor);
 }

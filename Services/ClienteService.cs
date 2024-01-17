@@ -11,6 +11,7 @@ namespace ResumoPedidos.Services
         {
             _clienteRepository = clienteRepository;
         }
+        
         public Cliente CadastrarCliente(string nome, string bairro)
         {
             try
