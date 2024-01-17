@@ -18,9 +18,6 @@ namespace ResumoPedidos.Data.Maps
             builder.Property(p => p.ValorTotal)
             .HasColumnType("DECIMAL(5,2)")
             .IsRequired();
-
-            builder.HasMany(p => p.Produtos)
-            .WithOne(p => p.ResumoPedido);
         }
     }
 }
