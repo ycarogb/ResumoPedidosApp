@@ -1,23 +1,24 @@
 using FluentAssertions;
-using Moq;
 using ResumoPedidos.Data.Repositories;
 using ResumoPedidos.Services;
 using ResumoPedidos.Tests.Helpers.Fakers;
+using Xunit;
 
-namespace ResumoPedidos.Tests;
-
-public class ClienteServiceTests
+namespace ResumoPedidos.Tests
 {
-    [Fact]
-    public async Task Cadastra_um_cliente()
+    public class ClienteServiceTests
     {
-        var cliente = ClienteFaker.Cliente.Generate();
+        [Fact]
+        public async Task Cadastra_um_cliente()
+        {
+            var cliente = ClienteFaker.Cliente.Generate();
 
-        var clienteRepository = new ClienteRepository();
-        var service = new ClienteService(clienteRepository);
+            var clienteRepository = new ClienteRepository();
+            var service = new ClienteService(clienteRepository);
 
-        var result = service.CadastrarCliente(cliente.Nome, cliente.Bairro);
+            var result = service.CadastrarCliente(cliente.Nome, cliente.Bairro);
 
-        result.Id.Should().NotBe(null);
-    }
+            result.Id.Should().NotBe(null);
+        }
+    } 
 }

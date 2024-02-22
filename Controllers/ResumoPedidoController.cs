@@ -5,18 +5,18 @@ using ResumoPedidos.Services;
 namespace ResumoPedidos.Controllers;
 
 [ApiController]
-[Route("[resumopedido]")]
+[Route("resumopedido")]
 public class ResumoPedidoController : ControllerBase
 {
     private readonly ILogger<ResumoPedidoController> _logger;
-    private readonly IClienteService _clienteService;
+    private readonly IResumoPedidoService _resumoPedidoService;
 
     public ResumoPedidoController(
         ILogger<ResumoPedidoController> logger,
-        IClienteService clienteService)
+        IResumoPedidoService resumoPedidoService)
     {
         _logger = logger;
-        _clienteService = clienteService;
+        _resumoPedidoService = resumoPedidoService;
     }
 
     [HttpGet(Name = "GetResumoPedido")]
@@ -25,10 +25,10 @@ public class ResumoPedidoController : ControllerBase
         return new List<ResumoPedido>();
     }
 
-    [HttpPost(Name = "CadastrarCliente")]
-    public Cliente CadastrarCliente(string nome, string bairro)
+    [HttpPost(Name = "CadastrarResumoPedido")]
+    public ResumoPedido CadastrarResumoPedido(int idCliente, List<Produto> produtos)
     {
-        var novoCliente = _clienteService.CadastrarCliente(nome, bairro);
-        return novoCliente;
+        var novoResumoPedido = _resumoPedidoService.CadastrarResumoPedido(idCliente, produtos);
+        return novoResumoPedido;
     }
 }

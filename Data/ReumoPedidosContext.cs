@@ -1,9 +1,17 @@
 using Microsoft.EntityFrameworkCore;
+using ResumoPedidos.Domain;
 
 namespace ResumoPedidos.Data
 {
     public class ResumoPedidosContext : DbContext
     {
+        
+        public DbSet<Produto> Produto { get; set; }
+
+        public DbSet<ResumoPedido>  ResumoPedidos { get; set; }
+
+        public DbSet<Cliente> Cliente { get; set; }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);

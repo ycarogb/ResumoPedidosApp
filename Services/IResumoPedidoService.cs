@@ -4,5 +4,5 @@ namespace ResumoPedidos.Services;
 
 public interface IResumoPedidoService
 {
-    ResumoPedido CreateResumoPedido(int idCliente, List<Produto> produtos);
+    ResumoPedido CadastrarResumoPedido(int idCliente, List<Produto> produtos);
 }

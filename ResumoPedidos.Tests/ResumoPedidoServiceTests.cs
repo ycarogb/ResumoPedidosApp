@@ -2,6 +2,7 @@ using FluentAssertions;
 using ResumoPedidos.Data.Repositories;
 using ResumoPedidos.Services;
 using ResumoPedidos.Tests.Helpers;
+using Xunit;
 
 namespace ResumoPedidos.Tests
 {
@@ -17,7 +18,7 @@ namespace ResumoPedidos.Tests
             var resumoPedidoRepository = new ResumoPedidoRepository();
             var service = new ResumoPedidoService(resumoPedidoRepository);
 
-            var result = service.CreateResumoPedido(resumoPedido.IdCliente, resumoPedido.Produtos);
+            var result = service.CadastrarResumoPedido(resumoPedido.IdCliente, resumoPedido.Produtos);
 
             result.Id.Should().NotBe(null);
         }
@@ -32,7 +33,7 @@ namespace ResumoPedidos.Tests
             var resumoPedidoRepository = new ResumoPedidoRepository();
             var service = new ResumoPedidoService(resumoPedidoRepository);
 
-            var result = service.CreateResumoPedido(resumoPedido.IdCliente, resumoPedido.Produtos);
+            var result = service.CadastrarResumoPedido(resumoPedido.IdCliente, resumoPedido.Produtos);
 
             var valorTotalEsperado = resumoPedido.Produtos.Select(p => p.Valor).Sum();
             result.ValorTotal.Should().Be(valorTotalEsperado);

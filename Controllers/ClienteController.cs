@@ -5,7 +5,7 @@ using ResumoPedidos.Services;
 namespace ResumoPedidos.Controllers;
 
 [ApiController]
-[Route("[cliente]")]
+[Route("cliente")]
 public class ClienteController : ControllerBase
 {
     private readonly ILogger<ClienteController> _logger;
@@ -19,8 +19,8 @@ public class ClienteController : ControllerBase
         _clienteService = clienteService;
     }
 
-    [HttpGet(Name = "GetCliente")]
-    public IEnumerable<Cliente> Get()
+    [HttpGet(Name = "GetClientes")]
+    public IEnumerable<Cliente> ObterClientes()
     {
         return new List<Cliente>();
     }
