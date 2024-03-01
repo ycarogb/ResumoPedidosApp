@@ -1,3 +1,4 @@
+using ResumoPedidos.Application.DTOs;
 using ResumoPedidos.Data.Repositories;
 using ResumoPedidos.Domain;
 
@@ -17,6 +18,20 @@ namespace ResumoPedidos.Services
             try
             {
                 var novoCliente = _clienteRepository.CreateCliente(nome, bairro);
+                return novoCliente;
+            }
+            catch (Exception)
+            {
+                throw new Exception("Erro ao cadastrar cliente.");
+            }
+        }
+
+        
+        public Cliente AtualizarDadosCliente(ClienteUpdate clienteComNovasInformacoes)
+        {
+            try
+            {
+                var novoCliente = _clienteRepository.UpdateCliente(clienteComNovasInformacoes);
                 return novoCliente;
             }
             catch (Exception)

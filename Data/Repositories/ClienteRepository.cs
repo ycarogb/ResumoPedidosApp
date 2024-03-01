@@ -1,3 +1,4 @@
+using ResumoPedidos.Application.DTOs;
 using ResumoPedidos.Domain;
 
 namespace ResumoPedidos.Data.Repositories
@@ -18,6 +19,16 @@ namespace ResumoPedidos.Data.Repositories
             db.SaveChanges();
 
             return cliente;
+        }
+
+        public Cliente UpdateCliente(ClienteUpdate clienteUpdate)
+        {
+            //TODO: Criar esse método
+            
+            //Busca o cliente no dbset
+            //altera o que deve ser alterado
+            //SaveChanges
+            return new Cliente();
         }
     }
 }
