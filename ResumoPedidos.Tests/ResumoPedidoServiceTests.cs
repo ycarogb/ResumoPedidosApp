@@ -20,7 +20,7 @@ namespace ResumoPedidos.Tests
 
             var result = service.CadastrarResumoPedido(resumoPedido.IdCliente, resumoPedido.Produtos);
 
-            result.Id.Should().NotBe(null);
+            result.IdResumoPedido.Should().NotBe(null);
         }
 
         [Fact]

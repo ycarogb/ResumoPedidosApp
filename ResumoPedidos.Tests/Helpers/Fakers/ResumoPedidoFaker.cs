@@ -9,6 +9,6 @@ public static class ResumoPedidoFaker
         new Faker<ResumoPedido>().Rules((faker, resumoPedido) =>
         { 
             resumoPedido.IdCliente = faker.Random.Int(100, 999);
-            resumoPedido.Id = faker.Random.Int();
+            resumoPedido.IdResumoPedido = faker.Random.Int();
         });
 }

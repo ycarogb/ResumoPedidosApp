@@ -8,14 +8,11 @@ namespace ResumoPedidos.Controllers;
 [Route("cliente")]
 public class ClienteController : ControllerBase
 {
-    private readonly ILogger<ClienteController> _logger;
     private readonly IClienteService _clienteService;
 
     public ClienteController(
-        ILogger<ClienteController> logger,
         IClienteService clienteService)
     {
-        _logger = logger;
         _clienteService = clienteService;
     }
 

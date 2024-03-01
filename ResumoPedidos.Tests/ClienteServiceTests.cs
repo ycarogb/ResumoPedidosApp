@@ -18,7 +18,7 @@ namespace ResumoPedidos.Tests
 
             var result = service.CadastrarCliente(cliente.Nome, cliente.Bairro);
 
-            result.Id.Should().NotBe(null);
+            result.IdCliente.Should().NotBe(null);
         }
     } 
 }

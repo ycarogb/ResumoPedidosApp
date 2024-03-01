@@ -1,3 +1,4 @@
+using ResumoPedidos.Data;
 using ResumoPedidos.Data.Repositories;
 using ResumoPedidos.Services;
 
@@ -9,14 +10,15 @@ builder.Services.AddScoped<IResumoPedidoService, ResumoPedidoService>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddScoped<IResumoPedidoRepository, ResumoPedidoRepository>();
+builder.Services.AddScoped<ResumoPedidosContext>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-string connectionString = app.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING")!;
+
+SeedDataBase.Initialize(app);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

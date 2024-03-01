@@ -18,7 +18,7 @@ namespace ResumoPedidos.Tests
 
             var result = service.CadastrarProduto(produto.Descricao, produto.Valor);
 
-            result.Id.Should().NotBe(null);
+            result.IdProduto.Should().NotBe(null);
         }
     }
 }

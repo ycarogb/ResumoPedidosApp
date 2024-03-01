@@ -3,7 +3,7 @@ using ResumoPedidos.Domain;
 
 namespace ResumoPedidos.Data
 {
-    public class SeedDataBase
+    public static class SeedDataBase
     {
         public static void Initialize(IHost app)
         {
@@ -18,7 +18,6 @@ namespace ResumoPedidos.Data
                     context.Produto.Add(new Produto
                     {
                         Descricao = "Quiche",
-                        Id = 1,
                         Valor = 85
                     });
                 }
@@ -28,7 +27,6 @@ namespace ResumoPedidos.Data
                     context.Cliente.Add(new Cliente()
                     {
                         Nome = "Cliente Seed",
-                        Id = 1,
                         Bairro = "Bairro Seed"
                     });
                 }
