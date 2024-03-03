@@ -10,10 +10,6 @@ namespace ResumoPedidos.Data.Maps
         {
             builder.ToTable("RESUMOPEDIDO");
             builder.HasKey(p => p.IdResumoPedido);
-
-            builder.Property(p => p.IdCliente)
-            .HasColumnType("INT")
-            .IsRequired();
             
             builder.Property(p => p.ValorTotal)
             .HasColumnType("DECIMAL(5,2)")
@@ -25,7 +21,6 @@ namespace ResumoPedidos.Data.Maps
             builder
                 .HasOne(p => p.Cliente)
                 .WithMany(p => p.ResumoPedidos)
-                .HasForeignKey(p => p.IdResumoPedido)
                 .HasPrincipalKey(p => p.IdCliente);
 
             /*
@@ -34,7 +29,7 @@ namespace ResumoPedidos.Data.Maps
             builder
                 .HasMany(p => p.Produtos)
                 .WithOne(p => p.ResumoPedido)
-                .HasForeignKey(p => p.IdResumoPedido)
+                .HasPrincipalKey(p => p.IdProduto)
                 .IsRequired(false);
         }
     }

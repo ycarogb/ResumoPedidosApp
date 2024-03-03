@@ -26,9 +26,9 @@ public class ResumoPedidoController : ControllerBase
     }
 
     [HttpPost(Name = "CadastrarResumoPedido")]
-    public ResumoPedido CadastrarResumoPedido(int idCliente, List<Produto> produtos)
+    public ResumoPedido CadastrarResumoPedido(Cliente cliente, List<Produto> produtos)
     {
-        var novoResumoPedido = _resumoPedidoService.CadastrarResumoPedido(idCliente, produtos);
+        var novoResumoPedido = _resumoPedidoService.CadastrarResumoPedido(cliente, produtos);
         return novoResumoPedido;
     }
 }

@@ -17,9 +17,10 @@ public class ClienteController : ControllerBase
     }
 
     [HttpGet(Name = "GetClientes")]
-    public IEnumerable<Cliente> ObterClientes()
+    public List<Cliente> ObterClientes()
     {
-        return new List<Cliente>();
+        var clientes = _clienteService.ObterTodosOsClientes();
+        return clientes;
     }
 
     [HttpPost(Name = "CadastrarCliente")]

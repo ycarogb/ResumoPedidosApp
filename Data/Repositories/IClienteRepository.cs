@@ -1,11 +1,11 @@
-using ResumoPedidos.Application.DTOs;
 using ResumoPedidos.Domain;
 
 namespace ResumoPedidos.Data.Repositories
 {
     public interface IClienteRepository
     {
+        List<Cliente> GetAllClientes();
         Cliente CreateCliente(string nome, string bairro);
-        Cliente UpdateCliente(ClienteUpdate clienteUpdate);
+        Cliente UpdateCliente(Cliente clienteUpdate);
     }
 }

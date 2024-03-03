@@ -26,16 +26,20 @@ namespace ResumoPedidos.Migrations
                 name: "RESUMOPEDIDO",
                 columns: table => new
                 {
-                    IdResumoPedido = table.Column<int>(type: "int", nullable: false),
+                    IdResumoPedido = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     IdCliente = table.Column<int>(type: "INT", nullable: false),
+                    ClienteIdCliente = table.Column<int>(type: "int", nullable: false),
+                    IdProduto = table.Column<int>(type: "int", nullable: false),
                     ValorTotal = table.Column<decimal>(type: "DECIMAL(5,2)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RESUMOPEDIDO", x => x.IdResumoPedido);
+                    table.UniqueConstraint("AK_RESUMOPEDIDO_IdProduto", x => x.IdProduto);
                     table.ForeignKey(
-                        name: "FK_RESUMOPEDIDO_CLIENTE_IdResumoPedido",
-                        column: x => x.IdResumoPedido,
+                        name: "FK_RESUMOPEDIDO_CLIENTE_ClienteIdCliente",
+                        column: x => x.ClienteIdCliente,
                         principalTable: "CLIENTE",
                         principalColumn: "IdCliente",
                         onDelete: ReferentialAction.Cascade);
@@ -49,23 +53,28 @@ namespace ResumoPedidos.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Descricao = table.Column<string>(type: "VARCHAR(100)", nullable: false),
                     Valor = table.Column<decimal>(type: "DECIMAL(5,2)", nullable: false),
-                    ResumoPedidoIdResumoPedido = table.Column<int>(type: "int", nullable: false)
+                    IdResumoPedido = table.Column<int>(type: "int", nullable: true),
+                    ResumoPedidoIdProduto = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PRODUTO", x => x.IdProduto);
                     table.ForeignKey(
-                        name: "FK_PRODUTO_RESUMOPEDIDO_ResumoPedidoIdResumoPedido",
-                        column: x => x.ResumoPedidoIdResumoPedido,
+                        name: "FK_PRODUTO_RESUMOPEDIDO_ResumoPedidoIdProduto",
+                        column: x => x.ResumoPedidoIdProduto,
                         principalTable: "RESUMOPEDIDO",
-                        principalColumn: "IdResumoPedido",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "IdProduto");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_PRODUTO_ResumoPedidoIdResumoPedido",
+                name: "IX_PRODUTO_ResumoPedidoIdProduto",
                 table: "PRODUTO",
-                column: "ResumoPedidoIdResumoPedido");
+                column: "ResumoPedidoIdProduto");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RESUMOPEDIDO_ClienteIdCliente",
+                table: "RESUMOPEDIDO",
+                column: "ClienteIdCliente");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -10,7 +10,6 @@ namespace ResumoPedidos.Tests.Helpers.Fakers
             {
                 cliente.Nome = faker.Random.String2(10);
                 cliente.Bairro = faker.Random.String2(10);
-                cliente.IdCliente = faker.Random.Int(1,10);
             });
 
     }

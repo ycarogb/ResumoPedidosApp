@@ -12,8 +12,8 @@ using ResumoPedidos.Data;
 namespace ResumoPedidos.Migrations
 {
     [DbContext(typeof(ResumoPedidosContext))]
-    [Migration("20240301022016_AtualizaRelacionamento")]
-    partial class AtualizaRelacionamento
+    [Migration("20240303022235_PrimeiraMigracao")]
+    partial class PrimeiraMigracao
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,12 +60,15 @@ namespace ResumoPedidos.Migrations
                     b.Property<int?>("IdResumoPedido")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ResumoPedidoIdProduto")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Valor")
                         .HasColumnType("DECIMAL(5,2)");
 
                     b.HasKey("IdProduto");
 
-                    b.HasIndex("IdResumoPedido");
+                    b.HasIndex("ResumoPedidoIdProduto");
 
                     b.ToTable("PRODUTO", (string)null);
                 });
@@ -73,15 +76,26 @@ namespace ResumoPedidos.Migrations
             modelBuilder.Entity("ResumoPedidos.Domain.ResumoPedido", b =>
                 {
                     b.Property<int>("IdResumoPedido")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdResumoPedido"), 1L, 1);
+
+                    b.Property<int>("ClienteIdCliente")
                         .HasColumnType("int");
 
                     b.Property<int>("IdCliente")
                         .HasColumnType("INT");
 
+                    b.Property<int>("IdProduto")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("ValorTotal")
                         .HasColumnType("DECIMAL(5,2)");
 
                     b.HasKey("IdResumoPedido");
+
+                    b.HasIndex("ClienteIdCliente");
 
                     b.ToTable("RESUMOPEDIDO", (string)null);
                 });
@@ -90,7 +104,8 @@ namespace ResumoPedidos.Migrations
                 {
                     b.HasOne("ResumoPedidos.Domain.ResumoPedido", "ResumoPedido")
                         .WithMany("Produtos")
-                        .HasForeignKey("IdResumoPedido");
+                        .HasForeignKey("ResumoPedidoIdProduto")
+                        .HasPrincipalKey("IdProduto");
 
                     b.Navigation("ResumoPedido");
                 });
@@ -99,7 +114,7 @@ namespace ResumoPedidos.Migrations
                 {
                     b.HasOne("ResumoPedidos.Domain.Cliente", "Cliente")
                         .WithMany("ResumoPedidos")
-                        .HasForeignKey("IdResumoPedido")
+                        .HasForeignKey("ClienteIdCliente")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

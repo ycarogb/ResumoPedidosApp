@@ -4,11 +4,11 @@ namespace ResumoPedidos.Data.Repositories;
 
 public class ResumoPedidoRepository : IResumoPedidoRepository
 {
-    public ResumoPedido CreateResumoPedido(int idCliente, List<Produto> produtos, decimal valorTotal)
+    public ResumoPedido CreateResumoPedido(Cliente cliente, List<Produto> produtos, decimal valorTotal)
     {
         var resumoPedido = new ResumoPedido()
         {
-            IdCliente = idCliente,
+            Cliente = cliente,
             Produtos = produtos,
             ValorTotal = valorTotal            
         };

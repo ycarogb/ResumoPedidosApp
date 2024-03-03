@@ -4,5 +4,5 @@ namespace ResumoPedidos.Data.Repositories;
 
 public interface IResumoPedidoRepository
 {
-    ResumoPedido CreateResumoPedido( int idCliente, List<Produto> produtos, decimal valorTotal );
+    ResumoPedido CreateResumoPedido( Cliente cliente, List<Produto> produtos, decimal valorTotal );
 }

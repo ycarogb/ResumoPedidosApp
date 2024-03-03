@@ -13,10 +13,10 @@ public class ResumoPedidoService : IResumoPedidoService
         _repository = repository;
     }
 
-    public ResumoPedido CadastrarResumoPedido(int idCliente, List<Produto> produtos)
+    public ResumoPedido CadastrarResumoPedido(Cliente cliente, List<Produto> produtos)
     {
         var valorTotal = CalcularValorTotal(produtos);
-        var novoResumoPedido = _repository.CreateResumoPedido(idCliente, produtos, valorTotal);
+        var novoResumoPedido = _repository.CreateResumoPedido(cliente, produtos, valorTotal);
         return novoResumoPedido;
     }
 

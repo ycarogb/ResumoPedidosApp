@@ -26,13 +26,25 @@ namespace ResumoPedidos.Services
             }
         }
 
-        
-        public Cliente AtualizarDadosCliente(ClienteUpdate clienteComNovasInformacoes)
+        public Cliente AtualizarDadosCliente(Cliente cliente)
         {
             try
             {
-                var novoCliente = _clienteRepository.UpdateCliente(clienteComNovasInformacoes);
+                var novoCliente = _clienteRepository.UpdateCliente(cliente);
                 return novoCliente;
+            }
+            catch (Exception)
+            {
+                throw new Exception("Erro ao cadastrar cliente.");
+            }
+        }
+
+        public List<Cliente> ObterTodosOsClientes()
+        {
+            try
+            {
+                var clientes = _clienteRepository.GetAllClientes();
+                return clientes;
             }
             catch (Exception)
             {

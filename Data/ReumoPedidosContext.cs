@@ -5,6 +5,7 @@ namespace ResumoPedidos.Data
 {
     public class ResumoPedidosContext : DbContext
     {
+        private static readonly ILoggerFactory _logger = LoggerFactory.Create(p => p.AddConsole());
         
         public DbSet<Produto> Produto { get; set; }
 
@@ -15,7 +16,10 @@ namespace ResumoPedidos.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Initial Catalog=Curso EFCore;Integrated Security=true");
+            optionsBuilder
+                .UseLoggerFactory(_logger)
+                .EnableSensitiveDataLogging() //EF Core mostra no console os valores dos parametros para cada registros alterado na api
+                .UseSqlServer("Server=(localdb)\\mssqllocaldb;Initial Catalog=Curso EFCore;Integrated Security=true");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
