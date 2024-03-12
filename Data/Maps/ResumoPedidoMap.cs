@@ -16,21 +16,13 @@ namespace ResumoPedidos.Data.Maps
             .IsRequired();
 
             /*
-              aqui temos uma relação de um para muitos nao obrigatorio, onde o cliente pode estar OU NÃO associado a varios resumos pedidos
+              aqui temos uma relação de um para muitos nao obrigatorio, sem navegação na entidade principal, 
+              onde o cliente pode estar OU NÃO associado a varios resumos pedidos
              */
             builder
                 .HasOne(p => p.Cliente)
-                .WithMany(p => p.ResumoPedidos)
-                .HasPrincipalKey(p => p.IdCliente);
-
-            /*
-                Relação um para muitos sem navegação para a entidade principal e com chave estrangeira de sombra
-             */
-            builder
-                .HasMany(p => p.Produtos)
-                .WithOne(p => p.ResumoPedido)
-                .HasPrincipalKey(p => p.IdProduto)
-                .IsRequired(false);
+                .WithMany()
+                .HasForeignKey(p => p.IdCliente);
         }
     }
 }

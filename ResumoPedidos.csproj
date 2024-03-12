@@ -34,6 +34,38 @@
     <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\obj\project.assets.json" />
     <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\obj\project.packagespec.json" />
     <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\obj\ResumoPedidos.Tests.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\appsettings.Development.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\appsettings.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.deps.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests.deps.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\appsettings.Development.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\appsettings.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.deps.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests.deps.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\appsettings.Development.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\appsettings.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.deps.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests.deps.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\appsettings.Development.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\appsettings.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.deps.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests.deps.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\obj\ResumoPedidos.Tests.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\obj\ResumoPedidos.Tests.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\obj\ResumoPedidos.Tests.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\obj\ResumoPedidos.Tests.csproj.nuget.dgspec.json" />
   </ItemGroup>
 
 </Project>

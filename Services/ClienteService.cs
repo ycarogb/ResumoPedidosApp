@@ -1,4 +1,3 @@
-using ResumoPedidos.Application.DTOs;
 using ResumoPedidos.Data.Repositories;
 using ResumoPedidos.Domain;
 
@@ -48,7 +47,20 @@ namespace ResumoPedidos.Services
             }
             catch (Exception)
             {
-                throw new Exception("Erro ao cadastrar cliente.");
+                throw new Exception("Erro ao obter registro de clientes.");
+            }
+        }
+
+        public Cliente ObterCliente(Func<Cliente, bool> predicate)
+        {
+            try
+            {
+                var cliente = _clienteRepository.GetCliente(predicate);
+                return cliente;
+            }
+            catch (Exception)
+            {
+                throw new Exception("Erro ao obter registro de cliente.");
             }
         }
     }

@@ -18,11 +18,11 @@ namespace ResumoPedidos.Data.Repositories
             return consultaPorSintaxe.ToList();
         }
 
-        public Cliente GetCliente(int idCliente)
+        public Cliente GetCliente(Func<Cliente, bool> predicate)
         {
             using var db = new ResumoPedidosContext();
 
-            var cliente = db.Cliente.First(p => p.IdCliente == idCliente);
+            var cliente = db.Cliente.First(predicate);
 
             return cliente;
         }
@@ -58,12 +58,17 @@ namespace ResumoPedidos.Data.Repositories
         public Cliente UpdateCliente(Cliente cliente)
         {
             using var db = new ResumoPedidosContext();
-            var clienteNoBanco = db.Cliente.First(p => p.IdCliente == cliente.IdCliente);
-
+            // var clienteNoBanco = db.Cliente.FirstOrDefault(p => p.IdCliente == cliente.IdCliente);
+            //
+            // if (clienteNoBanco == null) 
+            //     throw new Exception("Cliente não encontrado");
+            
             db.Cliente.Update(cliente);
             db.SaveChanges();
             
-            return new Cliente();
+            var clienteComNovosDados = db.Cliente.First(p => p.IdCliente == cliente.IdCliente);
+
+            return clienteComNovosDados;
         }
     }
 }

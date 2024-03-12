@@ -1,11 +1,13 @@
 using FluentAssertions;
 using ResumoPedidos.Data.Repositories;
+using ResumoPedidos.Domain;
 using ResumoPedidos.Services;
 using ResumoPedidos.Tests.Helpers.Fakers;
 using Xunit;
 
 namespace ResumoPedidos.Tests
 {
+    //TODO: Criar uma infraestrutura de teste em que nao se salve direto no banco de dados. Testes de Integração!! 
     public class ClienteServiceTests
     {
         //TODO: Criar testes para GetClientes
@@ -32,11 +34,17 @@ namespace ResumoPedidos.Tests
         [Fact]
         public void Atualiza_informacoes_de_um_cliente()
         {
-            var clienteComNovasInformacoes = ClienteFaker.Cliente.RuleFor(p => p.Nome, "Novo nome").Generate();
-            var clienteRepository = new ClienteRepository();
-            var service = new ClienteService(clienteRepository);
-
-            var result = service.AtualizarDadosCliente(clienteComNovasInformacoes);
+            var cliente = ClienteFaker.Cliente.Generate();
+            _service.CadastrarCliente(cliente.Nome, cliente.Bairro);
+            var clienteNoBanco = _service.ObterCliente(p => p.Nome == cliente.Nome);
+            var clienteComNovasInformacoes = new Cliente()
+            {
+                Bairro = clienteNoBanco.Bairro,
+                IdCliente = clienteNoBanco.IdCliente,
+                Nome = "novo nome"
+            };
+            
+            var result = _service.AtualizarDadosCliente(clienteComNovasInformacoes);
 
             result.Nome.Should().Be(clienteComNovasInformacoes.Nome);
         }

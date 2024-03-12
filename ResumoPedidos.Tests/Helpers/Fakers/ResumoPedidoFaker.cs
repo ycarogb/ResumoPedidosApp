@@ -11,5 +11,7 @@ public static class ResumoPedidoFaker
         { 
             resumoPedido.Cliente = ClienteFaker.Cliente.Generate();
             resumoPedido.IdResumoPedido = faker.Random.Int();
+            resumoPedido.Produtos = ProdutoFaker.Produto.Generate(1);
+            resumoPedido.ValorTotal = faker.Random.Decimal(1, 5000);
         });
 }
