@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using ResumoPedidos.Domain;
 
 namespace ResumoPedidos.Data.Repositories
@@ -10,10 +11,9 @@ namespace ResumoPedidos.Data.Repositories
             using var db = new ResumoPedidosContext();
 
             var consultaPorSintaxe =
-                from c in db.Cliente
-                where c.IdCliente > 0
-                select c;
-            var consultaPorMetodo = db.Cliente.Where(p => p.IdCliente > 0).ToList();
+                from cliente in db.Cliente
+                where cliente.IdCliente > 0
+                select cliente;
 
             return consultaPorSintaxe.ToList();
         }
@@ -58,10 +58,14 @@ namespace ResumoPedidos.Data.Repositories
         public Cliente UpdateCliente(Cliente cliente)
         {
             using var db = new ResumoPedidosContext();
-            // var clienteNoBanco = db.Cliente.FirstOrDefault(p => p.IdCliente == cliente.IdCliente);
-            //
-            // if (clienteNoBanco == null) 
-            //     throw new Exception("Cliente não encontrado");
+            /*
+             * Uso do .AsNoTracking para que o EF não rastreie as informações dos registros nesta consulta e evite conflitos ao
+             * editar os dados. Adotei essa solução pois aqui só queremos saber se os registros exitem e não seus valores! 
+             */
+            var clienteNoBanco = db.Cliente.AsNoTracking().FirstOrDefault(p => p.IdCliente == cliente.IdCliente);
+            
+            if (clienteNoBanco == null) 
+                throw new Exception("Cliente não encontrado");
             
             db.Cliente.Update(cliente);
             db.SaveChanges();

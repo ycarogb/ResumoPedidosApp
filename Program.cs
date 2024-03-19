@@ -1,3 +1,4 @@
+using Microsoft.OpenApi.Models;
 using ResumoPedidos.Data;
 using ResumoPedidos.Data.Repositories;
 using ResumoPedidos.Services;
@@ -14,7 +15,11 @@ builder.Services.AddScoped<ResumoPedidosContext>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(p =>
+{
+    p.SwaggerDoc("v1", new OpenApiInfo() { Title = "ResumoPedidosApi", Version = "v1" });
+    p.ResolveConflictingActions(q => q.First());
+});
 
 var app = builder.Build();
 

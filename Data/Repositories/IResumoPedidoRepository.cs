@@ -1,8 +1,9 @@
 using ResumoPedidos.Domain;
+using ResumoPedidos.Domain.Dtos;
 
 namespace ResumoPedidos.Data.Repositories;
 
 public interface IResumoPedidoRepository
 {
-    ResumoPedido CreateResumoPedido( Cliente cliente, List<Produto> produtos, decimal valorTotal );
+    ResumoPedido CreateResumoPedido(CadastrarResumoPedidoDto dto, decimal valorTotal);
 }

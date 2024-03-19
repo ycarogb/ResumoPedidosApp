@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ResumoPedidos.Domain;
+using ResumoPedidos.Domain.Dtos;
 using ResumoPedidos.Services;
 
 namespace ResumoPedidos.Controllers;
@@ -26,9 +27,9 @@ public class ResumoPedidoController : ControllerBase
     }
 
     [HttpPost(Name = "CadastrarResumoPedido")]
-    public ResumoPedido CadastrarResumoPedido(Cliente cliente, List<Produto> produtos)
+    public ResumoPedido CadastrarResumoPedido(CadastrarResumoPedidoDto dto)
     {
-        var novoResumoPedido = _resumoPedidoService.CadastrarResumoPedido(cliente, produtos);
+        var novoResumoPedido = _resumoPedidoService.CadastrarResumoPedido(dto);
         return novoResumoPedido;
     }
 }

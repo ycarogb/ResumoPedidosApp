@@ -7,5 +7,6 @@ namespace ResumoPedidos.Services
         Cliente ObterCliente(Func<Cliente, bool> predicate);
         List<Cliente> ObterTodosOsClientes();
         Cliente CadastrarCliente(string nome, string bairro);
+        Cliente EditarDados(Cliente cliente);
     }
 }

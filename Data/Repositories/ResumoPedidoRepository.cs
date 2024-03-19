@@ -1,15 +1,24 @@
 using ResumoPedidos.Domain;
+using ResumoPedidos.Domain.Dtos;
 
 namespace ResumoPedidos.Data.Repositories;
 
 public class ResumoPedidoRepository : IResumoPedidoRepository
 {
-    public ResumoPedido CreateResumoPedido(Cliente cliente, List<Produto> produtos, decimal valorTotal)
+    private IClienteRepository _clienteRepository;
+
+    public ResumoPedidoRepository(IClienteRepository clienteRepository)
     {
+        _clienteRepository = clienteRepository;
+    }
+
+    public ResumoPedido CreateResumoPedido(CadastrarResumoPedidoDto dto, decimal valorTotal)
+    {
+        var cliente = _clienteRepository.GetCliente(p => p.IdCliente == dto.IdCliente);
         var resumoPedido = new ResumoPedido()
         {
             Cliente = cliente,
-            Produtos = produtos,
+            Produtos = dto.Produtos,
             ValorTotal = valorTotal            
         };
 

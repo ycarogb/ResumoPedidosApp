@@ -25,6 +25,19 @@ namespace ResumoPedidos.Services
             }
         }
 
+        public Cliente EditarDados(Cliente cliente)
+        {
+            try
+            {
+                var clienteEditado = _clienteRepository.UpdateCliente(cliente);
+                return clienteEditado;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Erro ao editar dados do cliente.");
+            }
+        }
+
         public Cliente AtualizarDadosCliente(Cliente cliente)
         {
             try
