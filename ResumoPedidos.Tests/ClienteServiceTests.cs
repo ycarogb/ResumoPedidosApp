@@ -2,22 +2,25 @@ using FluentAssertions;
 using ResumoPedidos.Data.Repositories;
 using ResumoPedidos.Domain;
 using ResumoPedidos.Services;
+using ResumoPedidos.Tests.Base;
+using ResumoPedidos.Tests.Fixtures;
 using ResumoPedidos.Tests.Helpers.Fakers;
 using Xunit;
 
 namespace ResumoPedidos.Tests
 {
     //TODO: Criar uma infraestrutura de teste em que nao se salve direto no banco de dados. Testes de Integração!! 
-    public class ClienteServiceTests
+    public class ClienteServiceTests : ResumoPedidosTestBase, IClassFixture<ResumoPedidoTestFixture>
     {
         //TODO: Criar testes para GetClientes
         private readonly ClienteService _service;
-        public ClienteServiceTests()
+        public ClienteServiceTests(ResumoPedidoTestFixture fixture) : base(fixture)
         {
             var repository = new ClienteRepository();
             _service = new ClienteService(repository);
 
         }
+        
         [Fact]
         public void Cadastra_um_cliente()
         {
