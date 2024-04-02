@@ -400,3 +400,8 @@ FodyWeavers.xsd
 #.ideas
 *.ideas/*
 *.idea/**
+**.idea/**
+**/.idea/.idea.ResumoPedidos/.idea/**
+
+#index
+**/index.pb

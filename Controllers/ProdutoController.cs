@@ -19,16 +19,38 @@ public class ProdutoController : ControllerBase
         _produtoService = produtoService;
     }
 
-    [HttpGet(Name = "GetProdutos")]
-    public IEnumerable<Produto> ObterProdutos()
+    [HttpGet("GetById")]
+    public Produto ObterProdutoPorId(int id)
     {
-        return new List<Produto>();
+        var produto = _produtoService.ObterProduto(p => p.IdProduto == id);
+        return produto;
     }
 
-    [HttpPost(Name = "CadastrarProduto")]
-    public Produto CadastrarProduto(string descricao, decimal valor)
+    [HttpGet("GetProdutos")]
+    public List<Produto> ObterProdutos()
+    {
+        var produtos = _produtoService.ObterTodosOsProdutos();
+        return produtos;
+    }
+
+    [HttpPost("Cadastrar")]
+    public Produto Cadastrar(string descricao, decimal valor)
     {
         var novoProduto = _produtoService.CadastrarProduto(descricao, valor);
         return novoProduto;
+    }
+
+    [HttpPost("EditarDados")]
+    public Produto EditarDados(Produto produto)
+    {
+        var produtoEditado = _produtoService.EditarDados(produto);
+        return produtoEditado;
+    }
+
+    [HttpDelete("DeletarProduto")]
+    public bool ExcluirProduto(int idProduto)
+    {
+        var produtoExcluido = _produtoService.ExcluirProduto(idProduto);
+        return produtoExcluido;
     }
 }

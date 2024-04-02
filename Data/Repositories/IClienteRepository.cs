@@ -8,5 +8,6 @@ namespace ResumoPedidos.Data.Repositories
         List<Cliente> GetAllClientes();
         Cliente CreateCliente(string nome, string bairro);
         Cliente UpdateCliente(Cliente cliente);
+        bool RemoveCliente(int idCliente);
     }
 }

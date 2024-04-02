@@ -8,5 +8,6 @@ namespace ResumoPedidos.Services
         List<Cliente> ObterTodosOsClientes();
         Cliente CadastrarCliente(string nome, string bairro);
         Cliente EditarDados(Cliente cliente);
+        bool ExcluirCliente(int idCliente);
     }
 }

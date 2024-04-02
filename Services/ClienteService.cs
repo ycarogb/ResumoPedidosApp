@@ -38,6 +38,19 @@ namespace ResumoPedidos.Services
             }
         }
 
+        public bool ExcluirCliente(int idCliente)
+        {
+            try
+            {
+                var clienteExcluido = _clienteRepository.RemoveCliente(idCliente);
+                return clienteExcluido;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Erro ao deletar o cliente.");
+            }
+        }
+
         public Cliente AtualizarDadosCliente(Cliente cliente)
         {
             try

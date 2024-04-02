@@ -44,4 +44,11 @@ public class ClienteController : ControllerBase
         var clienteEditado = _clienteService.EditarDados(cliente);
         return clienteEditado;
     }
+
+    [HttpDelete("DeletarCliente")]
+    public bool ExcluirCliente(Cliente cliente)
+    {
+        var clienteExcluido = _clienteService.ExcluirCliente(cliente.IdCliente);
+        return clienteExcluido;
+    }
 }

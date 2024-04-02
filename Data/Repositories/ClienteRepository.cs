@@ -74,5 +74,19 @@ namespace ResumoPedidos.Data.Repositories
 
             return clienteComNovosDados;
         }
+
+        public bool RemoveCliente(int idCliente)
+        {
+            using var db = new ResumoPedidosContext();
+            
+            var clienteNoBanco = db.Cliente.AsNoTracking().FirstOrDefault(p => p.IdCliente == idCliente);
+            //TODO: INCLUIR EXCEÇÃO TRATADA PARA ESSE CASO
+            if (clienteNoBanco == null)
+                return false;
+
+            db.Cliente.Remove(clienteNoBanco);
+            db.SaveChanges();
+            return true;
+        }
     }
 }
