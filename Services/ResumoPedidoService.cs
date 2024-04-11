@@ -16,12 +16,70 @@ public class ResumoPedidoService : IResumoPedidoService
 
     public ResumoPedido CadastrarResumoPedido(CadastrarResumoPedidoDto dto)
     {
-        var valorTotal = CalcularValorTotal(dto.Produtos);
-        var novoResumoPedido = _repository.CreateResumoPedido(dto, valorTotal);
-        return novoResumoPedido;
+        try
+        {
+            var valorTotal = CalcularValorTotal(dto.Produtos);
+            var novoResumoPedido = _repository.CreateResumoPedido(dto, valorTotal);
+            return novoResumoPedido;
+        }
+        catch (Exception)
+        {
+            throw new Exception("Erro ao cadastrar resumoPedido.");
+        }
     }
 
-    //TODO: Estudar no livro DDD onde colocar uma calculadora
+    public ResumoPedido ObterResumoPedido(Func<ResumoPedido, bool> predicate)
+    {
+        try
+        {
+            var resumoPedido = _repository.GetResumoPedido(predicate);
+            return resumoPedido;
+        }
+        catch (Exception)
+        {
+            throw new Exception("Erro ao obter registro de resumoPedido.");
+        }
+    }
+
+    public List<ResumoPedido> ObterTodosOsResumoPedidos()
+    {
+        try
+        {
+            var resumoPedidos = _repository.GetAllResumoPedidos();
+            return resumoPedidos;
+        }
+        catch (Exception)
+        {
+            throw new Exception("Erro ao obter registro de resumoPedidos.");
+        }
+    }
+
+    public ResumoPedido EditarDados(ResumoPedido resumoPedido)
+    {
+        try
+        {
+            var resumoPedidoEditado = _repository.UpdateResumoPedido(resumoPedido);
+            return resumoPedidoEditado;
+        }
+        catch (Exception)
+        {
+            throw new Exception("Erro ao editar dados do resumoPedido.");
+        }
+    }
+
+    public bool ExcluirResumoPedido(int idResumoPedido)
+    {
+        try
+        {
+            var resumoPedidoExcluido = _repository.RemoveResumoPedido(idResumoPedido);
+            return resumoPedidoExcluido;
+        }
+        catch (Exception)
+        {
+            throw new Exception("Erro ao deletar o resumoPedido.");
+        }
+    }
+    
     private decimal CalcularValorTotal(List<Produto> produtos)
     {
         var calculadora = new CalculadoraDePrecos();

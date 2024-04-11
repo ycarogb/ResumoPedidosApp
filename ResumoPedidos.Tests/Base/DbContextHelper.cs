@@ -19,14 +19,14 @@ public sealed class DbContextHelper<TAppDbContext, TTestDbContext>
         _mapper = serviceProvider.GetRequiredService<IMapper>();
     }
 
-    public Task<TEntity> SingleAsync<TModel, TEntity>(Expression<Func<TModel, bool>> filter = null)
+    public Task<TEntity> SingleAsync<TModel, TEntity>(Expression<Func<TModel, bool>>? filter = null)
         where TModel : class
         where TEntity : class
     {
         return SelectSingleAsync<TModel, TEntity>(filter == null ? (p => p) : (p => p.Where(filter)));
     }
 
-    public Task<TModel> SingleAsync<TModel>(Expression<Func<TModel, bool>> filter = null)
+    public Task<TModel> SingleAsync<TModel>(Expression<Func<TModel, bool>>? filter = null)
         where TModel : class
     {
         return SelectSingleAsync<TModel>(filter == null ? (p => p) : (p => p.Where(filter)));
@@ -52,7 +52,7 @@ public sealed class DbContextHelper<TAppDbContext, TTestDbContext>
         return records.Should().ContainSingle().Subject;
     }
 
-    public Task<TModel> FirstAsync<TModel>(Expression<Func<TModel, bool>> filter = null)
+    public Task<TModel?> FirstAsync<TModel>(Expression<Func<TModel, bool>> filter = null)
         where TModel : class
     {
         var dbContext = CreateDbContext();
@@ -68,7 +68,7 @@ public sealed class DbContextHelper<TAppDbContext, TTestDbContext>
         return entity;
     }
 
-    public Task<List<TModel>> AllAsync<TModel>(Expression<Func<TModel, bool>> filter = null)
+    public Task<List<TModel>> AllAsync<TModel>(Expression<Func<TModel, bool>>? filter = null)
         where TModel : class
     {
         var dbContext = CreateDbContext();
@@ -77,7 +77,7 @@ public sealed class DbContextHelper<TAppDbContext, TTestDbContext>
         return query.ToListAsync();
     }
 
-    public async Task<List<TEntity>> AllAsync<TModel, TEntity>(Expression<Func<TModel, bool>> filter = null)
+    public async Task<List<TEntity>> AllAsync<TModel, TEntity>(Expression<Func<TModel, bool>>? filter = null)
         where TModel : class
         where TEntity : class
     {

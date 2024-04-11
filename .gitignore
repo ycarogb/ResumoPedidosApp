@@ -402,6 +402,9 @@ FodyWeavers.xsd
 *.idea/**
 **.idea/**
 **/.idea/.idea.ResumoPedidos/.idea/**
+*/ResumoPedidosApp/.idea/**
+
+
 
 #index
 **/index.pb

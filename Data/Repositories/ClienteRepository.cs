@@ -5,13 +5,17 @@ namespace ResumoPedidos.Data.Repositories
 {
     public class ClienteRepository : IClienteRepository
     {
-        //TODO: Considerar usar outra forma de injetar o context para melhorar "testabilidade"
+        private readonly ResumoPedidosContext _context;
+
+        public ClienteRepository(ResumoPedidosContext context)
+        {
+            _context = context;
+        }
+
         public List<Cliente> GetAllClientes()
         {
-            using var db = new ResumoPedidosContext();
-
             var consultaPorSintaxe =
-                from cliente in db.Cliente
+                from cliente in _context.Cliente
                 where cliente.IdCliente > 0
                 select cliente;
 
@@ -20,9 +24,7 @@ namespace ResumoPedidos.Data.Repositories
 
         public Cliente GetCliente(Func<Cliente, bool> predicate)
         {
-            using var db = new ResumoPedidosContext();
-
-            var cliente = db.Cliente.First(predicate);
+            var cliente = _context.Cliente.First(predicate);
 
             return cliente;
         }
@@ -34,11 +36,10 @@ namespace ResumoPedidos.Data.Repositories
                 Nome = nome,
                 Bairro = bairro
             };
-
-            using var db = new ResumoPedidosContext();
-            db.Add(cliente);
+            
+            _context.Add(cliente);
             //.SaveChanges() persiste no banco de dados os registros incluídos ou alterados
-            db.SaveChanges();
+            _context.SaveChanges();
 
             return cliente;
         }
@@ -46,46 +47,47 @@ namespace ResumoPedidos.Data.Repositories
         /*
             O método .AddRange() Serve para coleção de objetos com mesmo tipo ou para inserir objetos com tipos diferentes
          */
-        public static void CreateClientes(List<Cliente> clientes)
+        public List<Cliente> CreateClientes(List<Cliente> clientes)
         {
-            using var db = new ResumoPedidosContext();
-            db.AddRange(clientes);
+            foreach (var cliente in clientes)
+            {
+                CreateCliente(cliente.Nome, cliente.Bairro);
+                clientes.Add(cliente);
+            }
+            _context.AddRange(clientes);
+            _context.SaveChanges();
 
-            var registros = db.SaveChanges();
-            Console.WriteLine($"foram afetados {registros}");
+            return clientes;
+
         }
 
         public Cliente UpdateCliente(Cliente cliente)
         {
-            using var db = new ResumoPedidosContext();
             /*
              * Uso do .AsNoTracking para que o EF não rastreie as informações dos registros nesta consulta e evite conflitos ao
              * editar os dados. Adotei essa solução pois aqui só queremos saber se os registros exitem e não seus valores! 
              */
-            var clienteNoBanco = db.Cliente.AsNoTracking().FirstOrDefault(p => p.IdCliente == cliente.IdCliente);
+            var clienteNoBanco = _context.Cliente.AsNoTracking().FirstOrDefault(p => p.IdCliente == cliente.IdCliente);
             
             if (clienteNoBanco == null) 
                 throw new Exception("Cliente não encontrado");
             
-            db.Cliente.Update(cliente);
-            db.SaveChanges();
+            _context.Cliente.Update(cliente);
+            _context.SaveChanges();
             
-            var clienteComNovosDados = db.Cliente.First(p => p.IdCliente == cliente.IdCliente);
+            var clienteComNovosDados = _context.Cliente.First(p => p.IdCliente == cliente.IdCliente);
 
             return clienteComNovosDados;
         }
 
         public bool RemoveCliente(int idCliente)
         {
-            using var db = new ResumoPedidosContext();
-            
-            var clienteNoBanco = db.Cliente.AsNoTracking().FirstOrDefault(p => p.IdCliente == idCliente);
-            //TODO: INCLUIR EXCEÇÃO TRATADA PARA ESSE CASO
-            if (clienteNoBanco == null)
-                return false;
+            var clienteNoBanco = _context.Cliente.AsNoTracking().FirstOrDefault(p => p.IdCliente == idCliente);
 
-            db.Cliente.Remove(clienteNoBanco);
-            db.SaveChanges();
+            if (clienteNoBanco == null) throw new Exception("Decisão não encontrada");
+            
+            _context.Cliente.Remove(clienteNoBanco);
+            _context.SaveChanges();
             return true;
         }
     }

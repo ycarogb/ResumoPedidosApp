@@ -1,9 +1,8 @@
 using FluentAssertions;
+using Moq;
 using ResumoPedidos.Data.Repositories;
 using ResumoPedidos.Domain;
-using ResumoPedidos.Domain.Dtos;
 using ResumoPedidos.Services;
-using ResumoPedidos.Tests.Helpers;
 using ResumoPedidos.Tests.Helpers.Fakers;
 using Xunit;
 
@@ -15,12 +14,13 @@ namespace ResumoPedidos.Tests
     public class ResumoPedidoServiceTests
     {
         private readonly IClienteService _clienteService;
-        private readonly IClienteRepository _clienteRepository;
+        private readonly Mock<IResumoPedidoRepository> _resumoPedidoRepositoryMock;
 
         public ResumoPedidoServiceTests()
         {
-            _clienteRepository= new ClienteRepository();
-            _clienteService = new ClienteService(_clienteRepository);
+            _resumoPedidoRepositoryMock = new Mock<IResumoPedidoRepository>();
+            var clienteRepositoryMock = new Mock<IClienteRepository>();
+            _clienteService = new ClienteService(clienteRepositoryMock.Object);
         }
         [Fact]
         public void Cadastra_um_resumo_de_pedido()
@@ -29,8 +29,7 @@ namespace ResumoPedidos.Tests
             var clienteNoBanco = _clienteService.ObterCliente(p => p.Nome == "Nome Teste");
             var dto = CadastrarResumoPedidoDtoFaker.Dto
                 .RuleFor(p => p.IdCliente, clienteNoBanco.IdCliente).Generate();
-            var resumoPedidoRepository = new ResumoPedidoRepository(_clienteRepository);
-            var service = new ResumoPedidoService(resumoPedidoRepository);
+            var service = new ResumoPedidoService(_resumoPedidoRepositoryMock.Object);
 
             var result = service.CadastrarResumoPedido(dto);
             var resumoPedidoEsperado = new ResumoPedido()
@@ -51,8 +50,7 @@ namespace ResumoPedidos.Tests
             var clienteNoBanco = _clienteService.ObterCliente(p => p.Nome == "Nome Teste");
             var dto = CadastrarResumoPedidoDtoFaker.Dto
                 .RuleFor(p => p.IdCliente, clienteNoBanco.IdCliente).Generate();
-            var resumoPedidoRepository = new ResumoPedidoRepository(_clienteRepository);
-            var service = new ResumoPedidoService(resumoPedidoRepository);
+            var service = new ResumoPedidoService(_resumoPedidoRepositoryMock.Object);
 
             var result = service.CadastrarResumoPedido(dto);
 

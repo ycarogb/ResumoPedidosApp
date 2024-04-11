@@ -1,4 +1,5 @@
 using FluentAssertions;
+using Moq;
 using ResumoPedidos.Data.Repositories;
 using ResumoPedidos.Domain;
 using ResumoPedidos.Services;
@@ -14,10 +15,11 @@ namespace ResumoPedidos.Tests
     {
         //TODO: Criar testes para GetClientes
         private readonly ClienteService _service;
+
         public ClienteServiceTests(ResumoPedidoTestFixture fixture) : base(fixture)
         {
-            var repository = new ClienteRepository();
-            _service = new ClienteService(repository);
+            var repositoryMock = new Mock<IClienteRepository>();
+            _service = new ClienteService(repositoryMock.Object);
 
         }
         
@@ -26,10 +28,7 @@ namespace ResumoPedidos.Tests
         {
             var cliente = ClienteFaker.Cliente.Generate();
 
-            var clienteRepository = new ClienteRepository();
-            var service = new ClienteService(clienteRepository);
-
-            var result = service.CadastrarCliente(cliente.Nome, cliente.Bairro);
+            var result = _service.CadastrarCliente(cliente.Nome, cliente.Bairro);
 
             result.IdCliente.Should().NotBe(null);
         }

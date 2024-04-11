@@ -5,21 +5,24 @@ namespace ResumoPedidos.Data.Repositories;
 
 public class ProdutoRepository : IProdutoRepository
 {
+    private readonly ResumoPedidosContext _context;
+
+    public ProdutoRepository(ResumoPedidosContext context)
+    {
+        _context = context;
+    }
+
     public Produto GetProduto(Func<Produto, bool> predicate)
     {
-        using var db = new ResumoPedidosContext();
-
-        var produto = db.Produto.First(predicate);
+        var produto = _context.Produto.First(predicate);
 
         return produto;
     }
 
     public List<Produto> GetAllProdutos()
     {
-        using var db = new ResumoPedidosContext();
-
         var query =
-            from produto in db.Produto
+            from produto in _context.Produto
             where produto.IdProduto > 0
             select produto;
 
@@ -33,42 +36,35 @@ public class ProdutoRepository : IProdutoRepository
             Descricao = descricao,
             Valor = valor
         };
-
-        using var db = new ResumoPedidosContext();
-        db.Add(produto);
-        db.SaveChanges();
+        
+        _context.Add(produto);
+        _context.SaveChanges();
 
         return produto;
     }
 
     public Produto UpdateProduto(Produto produto)
     {
-        using var db = new ResumoPedidosContext();
-        
-        var produtoNoBanco = db.Produto.AsNoTracking().FirstOrDefault(p => p.IdProduto == produto.IdProduto);
+        var produtoNoBanco = _context.Produto.AsNoTracking().FirstOrDefault(p => p.IdProduto == produto.IdProduto);
             
         if (produtoNoBanco == null) 
             throw new Exception("Produto não encontrado");
             
-        db.Produto.Update(produto);
-        db.SaveChanges();
+        _context.Produto.Update(produto);
+        _context.SaveChanges();
             
-        var produtoComNovosDados = db.Produto.First(p => p.IdProduto == produto.IdProduto);
+        var produtoComNovosDados = _context.Produto.First(p => p.IdProduto == produto.IdProduto);
 
         return produtoComNovosDados;
     }
 
     public bool RemoveProduto(int idProduto)
     {
-        using var db = new ResumoPedidosContext();
-        
-        var produtoNoBanco = db.Produto.AsNoTracking().FirstOrDefault(p => p.IdProduto == idProduto);
-        //TODO: INCLUIR EXCEÇÃO TRATADA PARA ESSE CASO
-        if (produtoNoBanco == null)
-            return false;
+        var produtoNoBanco = _context.Produto.AsNoTracking().FirstOrDefault(p => p.IdProduto == idProduto);
+        if (produtoNoBanco == null) throw new Exception("Produto não encontrado");
 
-        db.Produto.Remove(produtoNoBanco);
-        db.SaveChanges();
+        _context.Produto.Remove(produtoNoBanco);
+        _context.SaveChanges();
         return true;
     }
 }
