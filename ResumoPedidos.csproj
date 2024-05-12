@@ -70,6 +70,7 @@
     <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\obj\project.assets.json" />
     <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\obj\ResumoPedidos.Tests.csproj.nuget.dgspec.json" />
     <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\obj\project.packagespec.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\obj\Debug\net6.0\MvcTestingAppManifest.json" />
   </ItemGroup>
 
   <ItemGroup>
