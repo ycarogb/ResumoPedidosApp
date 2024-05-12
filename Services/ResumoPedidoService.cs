@@ -80,7 +80,7 @@ public class ResumoPedidoService : IResumoPedidoService
         }
     }
     
-    private decimal CalcularValorTotal(List<Produto> produtos)
+    public decimal CalcularValorTotal(List<Produto> produtos)
     {
         var calculadora = new CalculadoraDePrecos();
         return calculadora.ObterValorTotal(produtos);
