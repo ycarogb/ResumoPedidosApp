@@ -72,4 +72,10 @@
     <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\obj\project.packagespec.json" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Testing">
+      <HintPath>..\..\..\Users\ycaro.batalha\.nuget\packages\microsoft.aspnetcore.mvc.testing\6.0.29\lib\net6.0\Microsoft.AspNetCore.Mvc.Testing.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
