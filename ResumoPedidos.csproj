@@ -23,9 +23,10 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="Moq" Version="4.20.70" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="xunit.assert" Version="2.1.0" />
     <PackageReference Include="xunit.extensibility.core" Version="2.4.1" />
   </ItemGroup>
 
@@ -71,6 +72,7 @@
     <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\obj\ResumoPedidos.Tests.csproj.nuget.dgspec.json" />
     <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\bin\Debug\net6.0\ResumoPedidos.Tests\obj\project.packagespec.json" />
     <_ContentIncludedByDefault Remove="ResumoPedidos.Tests\obj\Debug\net6.0\MvcTestingAppManifest.json" />
+    <_ContentIncludedByDefault Remove="ResumoPedidos.Test\packages.config" />
   </ItemGroup>
 
   <ItemGroup>
