@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ResumoPedidos.Data;
 
@@ -11,9 +12,10 @@ using ResumoPedidos.Data;
 namespace ResumoPedidos.Migrations
 {
     [DbContext(typeof(ResumoPedidosContext))]
-    partial class ResumoPedidosContextModelSnapshot : ModelSnapshot
+    [Migration("20240527003916_Alterando dependencias da tabela ProdutoPedido")]
+    partial class AlterandodependenciasdatabelaProdutoPedido
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

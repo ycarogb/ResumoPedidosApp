@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ResumoPedidos.Data;
 
@@ -11,9 +12,10 @@ using ResumoPedidos.Data;
 namespace ResumoPedidos.Migrations
 {
     [DbContext(typeof(ResumoPedidosContext))]
-    partial class ResumoPedidosContextModelSnapshot : ModelSnapshot
+    [Migration("20240527003817_Altera dependencias da tabela ProdutoPedido")]
+    partial class AlteradependenciasdatabelaProdutoPedido
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,7 +84,17 @@ namespace ResumoPedidos.Migrations
                     b.Property<int>("IdResumoPedido")
                         .HasColumnType("int");
 
+                    b.Property<int>("ProdutoIdProduto")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ResumoPedidoIdResumoPedido")
+                        .HasColumnType("int");
+
                     b.HasKey("IdProdutoPedido");
+
+                    b.HasIndex("ProdutoIdProduto");
+
+                    b.HasIndex("ResumoPedidoIdResumoPedido");
 
                     b.ToTable("PRODUTO_PEDIDO", (string)null);
                 });
@@ -113,6 +125,25 @@ namespace ResumoPedidos.Migrations
                     b.HasOne("ResumoPedidos.Domain.ResumoPedido", null)
                         .WithMany("Produtos")
                         .HasForeignKey("ResumoPedidoIdResumoPedido");
+                });
+
+            modelBuilder.Entity("ResumoPedidos.Domain.ProdutoPedido", b =>
+                {
+                    b.HasOne("ResumoPedidos.Domain.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoIdProduto")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ResumoPedidos.Domain.ResumoPedido", "ResumoPedido")
+                        .WithMany()
+                        .HasForeignKey("ResumoPedidoIdResumoPedido")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Produto");
+
+                    b.Navigation("ResumoPedido");
                 });
 
             modelBuilder.Entity("ResumoPedidos.Domain.ResumoPedido", b =>
