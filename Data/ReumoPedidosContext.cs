@@ -12,6 +12,7 @@ namespace ResumoPedidos.Data
         public DbSet<ResumoPedido>  ResumoPedidos { get; set; }
 
         public DbSet<Cliente> Cliente { get; set; }
+        public DbSet<ProdutoPedido> ProdutoPedido { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

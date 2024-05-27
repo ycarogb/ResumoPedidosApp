@@ -31,6 +31,19 @@ public class ProdutoService : IProdutoService
         }
     }
 
+    public List<Produto> ObterProdutos(Func<Produto, bool> predicate)
+    {
+        try
+        {
+            var produtos = _repository.GetProdutos(predicate);
+            return produtos;
+        }
+        catch (Exception)
+        {
+            throw new Exception("Erro ao obter registros de produtos.");
+        }
+    }
+
     public List<Produto> ObterTodosOsProdutos()
     {
         try

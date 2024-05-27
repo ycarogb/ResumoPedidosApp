@@ -2,30 +2,60 @@ using ResumoPedidos.Data.Repositories;
 using ResumoPedidos.Domain;
 using ResumoPedidos.Domain.Dtos;
 using ResumoPedidos.Services.Helpers;
+using ResumoPedidos.Services.Mappers;
 
 namespace ResumoPedidos.Services;
 
 public class ResumoPedidoService : IResumoPedidoService
 {
     private readonly IResumoPedidoRepository _repository;
+    private readonly IClienteRepository _clienteRepository;
+    private readonly IProdutoPedidoRepository _produtoResumoRepository;
+    private readonly IProdutoPedidoService _produtoPedidoService;
 
-    public ResumoPedidoService(IResumoPedidoRepository repository)
-    {   
+    public ResumoPedidoService(
+        IResumoPedidoRepository repository, 
+        IClienteRepository clienteRepository, 
+        IProdutoPedidoRepository produtoResumoRepository, 
+        IProdutoPedidoService produtoPedidoService)
+    {
         _repository = repository;
+        _clienteRepository = clienteRepository;
+        _produtoResumoRepository = produtoResumoRepository;
+        _produtoPedidoService = produtoPedidoService;
     }
 
-    public ResumoPedido CadastrarResumoPedido(CadastrarResumoPedidoDto dto)
+    public async Task<ResumoPedidoResponseDto> CadastrarResumoPedidoAsync(CadastrarResumoPedidoDto dto)
     {
         try
         {
             var valorTotal = CalcularValorTotal(dto.Produtos);
-            var novoResumoPedido = _repository.CreateResumoPedido(dto, valorTotal);
-            return novoResumoPedido;
+            var cliente = _clienteRepository.GetCliente(p => p.IdCliente == dto.IdCliente);
+            var resumoPedidoNoBanco = _repository.CreateResumoPedido(cliente.IdCliente, valorTotal);
+            var idsProdutos = dto.Produtos.Select(p => p.IdProduto).ToArray();
+            await _produtoResumoRepository.CreateProdutosPedidosAsync(idsProdutos, resumoPedidoNoBanco.IdResumoPedido);
+
+            var result = new ResumoPedidoResponseDto()
+            {
+                NomeCliente = cliente.Nome,
+                ValorTotal = resumoPedidoNoBanco.ValorTotal,
+                Produtos = await ObterProdutosDoResumo(resumoPedidoNoBanco.IdResumoPedido)
+            };
+            
+            return result;
         }
         catch (Exception)
         {
             throw new Exception("Erro ao cadastrar resumoPedido.");
         }
+    }
+
+    private async Task<List<ProdutoResumoPedidoDto>> ObterProdutosDoResumo(int idResumoPedido)
+    {
+        var produtosResumo = await _produtoPedidoService.ObterProdutosPorResumoPedidoAsync(idResumoPedido);
+        var result = ProdutoResumoPedidoDtoMapper.Map(produtosResumo);
+
+        return result;
     }
 
     public ResumoPedido ObterResumoPedido(Func<ResumoPedido, bool> predicate)

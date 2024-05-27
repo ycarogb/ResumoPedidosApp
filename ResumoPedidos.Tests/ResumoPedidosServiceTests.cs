@@ -14,7 +14,15 @@ public class ResumoPedidoServiceTest
     public ResumoPedidoServiceTest()
     {
         var repository = new Mock<IResumoPedidoRepository>();
-        _service = new ResumoPedidoService(repository.Object);
+        var clienteRepositoryMock = new Mock<IClienteRepository>();
+        var produtoPedidoRepositoryMock = new Mock<IProdutoPedidoRepository>();
+        var produtoPedidoServiceMock = new Mock<IProdutoPedidoService>();
+        
+        _service = new ResumoPedidoService(
+            repository.Object, 
+            clienteRepositoryMock.Object,
+            produtoPedidoRepositoryMock.Object,
+            produtoPedidoServiceMock.Object);
     }
 
 

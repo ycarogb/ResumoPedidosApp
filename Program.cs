@@ -8,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
+builder.Services.AddScoped<IProdutoPedidoService, ProdutoPedidoService>();
+builder.Services.AddScoped<IProdutoPedidoRepository, ProdutoPedidoRepository>();
 builder.Services.AddScoped<IResumoPedidoService, ResumoPedidoService>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();

@@ -6,25 +6,21 @@ namespace ResumoPedidos.Data.Repositories;
 
 public class ResumoPedidoRepository : IResumoPedidoRepository
 {
-    private readonly IClienteRepository _clienteRepository;
     private readonly ResumoPedidosContext _context;
 
-    public ResumoPedidoRepository(IClienteRepository clienteRepository, ResumoPedidosContext context)
+    public ResumoPedidoRepository(ResumoPedidosContext context)
     {
-        _clienteRepository = clienteRepository;
         _context = context;
     }
 
-    public ResumoPedido CreateResumoPedido(CadastrarResumoPedidoDto dto, decimal valorTotal)
+    public ResumoPedido CreateResumoPedido(int idCliente, decimal valorTotal)
     {
-        var cliente = _clienteRepository.GetCliente(p => p.IdCliente == dto.IdCliente);
         var resumoPedido = new ResumoPedido()
         {
-            Cliente = cliente,
-            Produtos = dto.Produtos,
+            IdCliente = idCliente,
             ValorTotal = valorTotal            
         };
-
+        
         using var db = new ResumoPedidosContext();
         db.Add(resumoPedido);
         db.SaveChanges();

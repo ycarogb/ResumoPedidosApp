@@ -11,13 +11,12 @@ public class ProdutoPedidoMap: IEntityTypeConfiguration<ProdutoPedido>
         builder.ToTable("PRODUTO_PEDIDO");
         builder.HasKey(p => p.IdProdutoPedido);
 
-        builder.Property(p => p.IdProduto).IsRequired();
+        builder
+            .Property(p => p.IdProduto)
+            .IsRequired();
 
-        builder.Property(p => p.ValorVendido).HasColumnType("DECIMAL(5,2)").IsRequired();
-
-        builder.Property(p => p.IdResumoPedido).IsRequired();
-
-        builder.HasMany<ResumoPedido>().WithOne();
-        builder.HasMany<Produto>().WithOne();
+        builder
+            .Property(p => p.IdResumoPedido)
+            .IsRequired();
     }
 }

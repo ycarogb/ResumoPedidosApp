@@ -34,9 +34,9 @@ public class ResumoPedidoController : ControllerBase
     }
 
     [HttpPost(Name = "CadastrarResumoPedido")]
-    public ResumoPedido CadastrarResumoPedido(CadastrarResumoPedidoDto dto)
+    public async Task<ResumoPedidoResponseDto> CadastrarResumoPedido(CadastrarResumoPedidoDto dto)
     {
-        var novoResumoPedido = _service.CadastrarResumoPedido(dto);
+        var novoResumoPedido = await _service.CadastrarResumoPedidoAsync(dto);
         return novoResumoPedido;
     }
     

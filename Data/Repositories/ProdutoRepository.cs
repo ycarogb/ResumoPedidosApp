@@ -18,6 +18,13 @@ public class ProdutoRepository : IProdutoRepository
 
         return produto;
     }
+    
+    public List<Produto> GetProdutos(Func<Produto, bool> predicate)
+    {
+        var produto = _context.Produto.Where(predicate).ToList();
+
+        return produto;
+    }
 
     public List<Produto> GetAllProdutos()
     {
