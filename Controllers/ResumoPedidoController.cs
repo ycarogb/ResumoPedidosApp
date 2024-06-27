@@ -28,12 +28,14 @@ public class ResumoPedidoController : ControllerBase
     }
     
     [HttpGet(Name = "GetResumoPedido")]
+    /*TODO: ALTERAR PARA GETALL*/
     public IEnumerable<ResumoPedido> Get()
     {
         return new List<ResumoPedido>();
     }
 
     [HttpPost(Name = "CadastrarResumoPedido")]
+    /*TODO: O CADASTRO DO RESUMO DEVE SALVAR O REGISTRO E RETORNAR O TEXTO PARA SER COPIADO PELO CLIENTE*/
     public async Task<ResumoPedidoResponseDto> CadastrarResumoPedido(CadastrarResumoPedidoDto dto)
     {
         var novoResumoPedido = await _service.CadastrarResumoPedidoAsync(dto);
