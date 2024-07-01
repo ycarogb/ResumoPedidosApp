@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using ResumoPedidos.Domain;
 
 namespace ResumoPedidos.Data.Repositories;
@@ -20,5 +21,14 @@ public class ProdutoPedidoRepository : IProdutoPedidoRepository
         await _context.SaveChangesAsync();
 
         return novosRegistros;
+    }
+
+    public async Task<int> ObterQuantidadeProdutosNoPedidoAsync(int idResumoPedido, int idProduto)
+    {
+        var quantidade = await _context.ProdutoPedido
+            .Where(p => p.IdResumoPedido == idResumoPedido && p.IdProduto == idProduto)
+            .ToListAsync();
+
+        return quantidade.Count;
     }
 }

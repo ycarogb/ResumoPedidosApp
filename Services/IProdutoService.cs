@@ -10,4 +10,5 @@ public interface IProdutoService
     List<Produto> ObterTodosOsProdutos();
     Produto EditarDados(Produto produto);
     bool ExcluirProduto(int idProduto);
+    Task<int> ObterQuantidadePorResumoPedidoAsync(int idResumoPedido, int idProduto);
 }

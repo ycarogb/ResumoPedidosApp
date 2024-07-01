@@ -2,7 +2,6 @@ using ResumoPedidos.Data.Repositories;
 using ResumoPedidos.Domain;
 using ResumoPedidos.Domain.Dtos;
 using ResumoPedidos.Services.Helpers;
-using ResumoPedidos.Services.Mappers;
 
 namespace ResumoPedidos.Services;
 
@@ -11,18 +10,18 @@ public class ResumoPedidoService : IResumoPedidoService
     private readonly IResumoPedidoRepository _repository;
     private readonly IClienteRepository _clienteRepository;
     private readonly IProdutoPedidoRepository _produtoResumoRepository;
-    private readonly IProdutoPedidoService _produtoPedidoService;
+    private readonly ResumoPedidoHelper _helper;
 
     public ResumoPedidoService(
         IResumoPedidoRepository repository, 
         IClienteRepository clienteRepository, 
-        IProdutoPedidoRepository produtoResumoRepository, 
-        IProdutoPedidoService produtoPedidoService)
+        IProdutoPedidoRepository produtoResumoRepository,
+        ResumoPedidoHelper helper)
     {
         _repository = repository;
         _clienteRepository = clienteRepository;
         _produtoResumoRepository = produtoResumoRepository;
-        _produtoPedidoService = produtoPedidoService;
+        _helper = helper;
     }
 
     public async Task<ResumoPedidoResponseDto> CadastrarResumoPedidoAsync(CadastrarResumoPedidoDto dto)
@@ -37,9 +36,7 @@ public class ResumoPedidoService : IResumoPedidoService
 
             var result = new ResumoPedidoResponseDto()
             {
-                NomeCliente = cliente.Nome,
-                ValorTotal = resumoPedidoNoBanco.ValorTotal,
-                Produtos = await ObterProdutosDoResumo(resumoPedidoNoBanco.IdResumoPedido)
+                ResumoPedidoTexto = await _helper.CriaTextoAsync(cliente, resumoPedidoNoBanco, dto.Produtos)
             };
             
             return result;
@@ -49,15 +46,7 @@ public class ResumoPedidoService : IResumoPedidoService
             throw new Exception("Erro ao cadastrar resumoPedido.");
         }
     }
-
-    private async Task<List<ProdutoResumoPedidoDto>> ObterProdutosDoResumo(int idResumoPedido)
-    {
-        var produtosResumo = await _produtoPedidoService.ObterProdutosPorResumoPedidoAsync(idResumoPedido);
-        var result = ProdutoResumoPedidoDtoMapper.Map(produtosResumo);
-
-        return result;
-    }
-
+    
     public ResumoPedido ObterResumoPedido(Func<ResumoPedido, bool> predicate)
     {
         try

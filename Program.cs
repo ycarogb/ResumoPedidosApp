@@ -2,6 +2,7 @@ using Microsoft.OpenApi.Models;
 using ResumoPedidos.Data;
 using ResumoPedidos.Data.Repositories;
 using ResumoPedidos.Services;
+using ResumoPedidos.Services.Helpers;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,7 @@ builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddScoped<IResumoPedidoRepository, ResumoPedidoRepository>();
 builder.Services.AddScoped<ResumoPedidosContext>();
+builder.Services.AddScoped<ResumoPedidoHelper>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

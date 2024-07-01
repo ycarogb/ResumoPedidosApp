@@ -3,6 +3,7 @@ using Moq;
 using ResumoPedidos.Data.Repositories;
 using ResumoPedidos.Domain;
 using ResumoPedidos.Services;
+using ResumoPedidos.Services.Helpers;
 using ResumoPedidos.Tests.Fakers;
 
 namespace ResumoPedidos.Tests;
@@ -16,13 +17,14 @@ public class ResumoPedidoServiceTest
         var repository = new Mock<IResumoPedidoRepository>();
         var clienteRepositoryMock = new Mock<IClienteRepository>();
         var produtoPedidoRepositoryMock = new Mock<IProdutoPedidoRepository>();
-        var produtoPedidoServiceMock = new Mock<IProdutoPedidoService>();
+        var produtoServiceMock = new Mock<IProdutoService>();
+        var resumoPedidoHelper = new ResumoPedidoHelper(produtoServiceMock.Object);
         
         _service = new ResumoPedidoService(
             repository.Object, 
             clienteRepositoryMock.Object,
             produtoPedidoRepositoryMock.Object,
-            produtoPedidoServiceMock.Object);
+            resumoPedidoHelper);
     }
 
 

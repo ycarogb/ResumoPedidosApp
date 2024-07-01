@@ -6,10 +6,12 @@ namespace ResumoPedidos.Services;
 public class ProdutoService : IProdutoService
 {
     private readonly IProdutoRepository _repository;
+    private readonly IProdutoPedidoRepository _produtoPedidoRepository;
 
-    public ProdutoService(IProdutoRepository repository)
-    {   
+    public ProdutoService(IProdutoRepository repository, IProdutoPedidoRepository produtoPedidoRepository)
+    {
         _repository = repository;
+        _produtoPedidoRepository = produtoPedidoRepository;
     }
 
     public Produto CadastrarProduto(string descricao, decimal valor)
@@ -81,5 +83,11 @@ public class ProdutoService : IProdutoService
         {
             throw new Exception("Erro ao deletar o produto.");
         }
+    }
+
+    public async Task<int> ObterQuantidadePorResumoPedidoAsync(int idResumoPedido, int idProduto)
+    {
+        var quantidade = await _produtoPedidoRepository.ObterQuantidadeProdutosNoPedidoAsync(idResumoPedido, idProduto);
+        return quantidade;
     }
 }
