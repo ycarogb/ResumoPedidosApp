@@ -24,7 +24,8 @@ public class ResumoPedidoServiceTest
             repository.Object, 
             clienteRepositoryMock.Object,
             produtoPedidoRepositoryMock.Object,
-            resumoPedidoHelper);
+            resumoPedidoHelper,
+            produtoServiceMock.Object);
     }
 
 

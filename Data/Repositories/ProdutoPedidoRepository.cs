@@ -12,7 +12,7 @@ public class ProdutoPedidoRepository : IProdutoPedidoRepository
         _context = context;
     }
 
-    public async Task<List<ProdutoPedido>> CreateProdutosPedidosAsync(int[] idsProduto, int idResumoPedido)
+    public async Task<List<ProdutoPedido>> CreateProdutosPedidosAsync(IEnumerable<int> idsProduto, int idResumoPedido)
     {
         var novosRegistros = idsProduto
             .Select(id => new ProdutoPedido() { IdProduto = id, IdResumoPedido = idResumoPedido }).ToList();

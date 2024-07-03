@@ -30,7 +30,29 @@ namespace ResumoPedidos.Data
                         Bairro = "Bairro Seed"
                     });
                 }
+                
+                if (!context.ResumoPedidos.Any())
+                {
+                    context.ResumoPedidos.Add(new ResumoPedido()
+                    {
+                        IdCliente = 222,
+                        ValorTotal = 100
+                    });
+                }
+                
+                if (!context.ProdutoPedido.Any())
+                {
+                    context.ProdutoPedido.Add(new ProdutoPedido()
+                    {
+                        IdProduto = 1,
+                        IdResumoPedido = 1
+                    });
+                }
+                
                 context.SaveChanges();
+                context.SaveChanges();
+                
+                
             }
         }
     }

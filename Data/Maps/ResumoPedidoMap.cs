@@ -12,17 +12,12 @@ namespace ResumoPedidos.Data.Maps
             builder.HasKey(p => p.IdResumoPedido);
             
             builder.Property(p => p.ValorTotal)
-            .HasColumnType("DECIMAL(5,2)")
-            .IsRequired();
+                .HasColumnType("DECIMAL(5,2)")
+                .IsRequired();
 
-            /*
-              aqui temos uma relação de um para muitos nao obrigatorio, sem navegação na entidade principal, 
-              onde o cliente pode estar OU NÃO associado a varios resumos pedidos
-             */
-            builder
-                .HasOne(p => p.Cliente)
-                .WithMany()
-                .HasForeignKey(p => p.IdCliente);
+            builder.Property(p => p.IdCliente)
+                .HasMaxLength(50)
+                .IsRequired();
         }
     }
 }

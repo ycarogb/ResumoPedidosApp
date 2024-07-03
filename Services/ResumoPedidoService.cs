@@ -11,32 +11,36 @@ public class ResumoPedidoService : IResumoPedidoService
     private readonly IClienteRepository _clienteRepository;
     private readonly IProdutoPedidoRepository _produtoResumoRepository;
     private readonly ResumoPedidoHelper _helper;
+    private readonly IProdutoService _produtoSevice;
 
     public ResumoPedidoService(
         IResumoPedidoRepository repository, 
         IClienteRepository clienteRepository, 
         IProdutoPedidoRepository produtoResumoRepository,
-        ResumoPedidoHelper helper)
+        ResumoPedidoHelper helper, 
+        IProdutoService produtoSevice)
     {
         _repository = repository;
         _clienteRepository = clienteRepository;
         _produtoResumoRepository = produtoResumoRepository;
         _helper = helper;
+        _produtoSevice = produtoSevice;
     }
 
     public async Task<ResumoPedidoResponseDto> CadastrarResumoPedidoAsync(CadastrarResumoPedidoDto dto)
     {
         try
         {
-            var valorTotal = CalcularValorTotal(dto.Produtos);
+            var idsProdutosDoPedido = dto.Produtos.Select(q => q.IdProduto);
+            var produtosDoPedido = _produtoSevice.ObterProdutos(p => idsProdutosDoPedido.Contains(p.IdProduto));
+            var valorTotal = CalcularValorTotal(produtosDoPedido);
             var cliente = _clienteRepository.GetCliente(p => p.IdCliente == dto.IdCliente);
             var resumoPedidoNoBanco = _repository.CreateResumoPedido(cliente.IdCliente, valorTotal);
-            var idsProdutos = dto.Produtos.Select(p => p.IdProduto).ToArray();
-            await _produtoResumoRepository.CreateProdutosPedidosAsync(idsProdutos, resumoPedidoNoBanco.IdResumoPedido);
+            await _produtoResumoRepository.CreateProdutosPedidosAsync(idsProdutosDoPedido, resumoPedidoNoBanco.IdResumoPedido);
 
             var result = new ResumoPedidoResponseDto()
             {
-                ResumoPedidoTexto = await _helper.CriaTextoAsync(cliente, resumoPedidoNoBanco, dto.Produtos)
+                ResumoPedidoTexto = await _helper.CriaTextoAsync(cliente, resumoPedidoNoBanco, produtosDoPedido)
             };
             
             return result;
