@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ResumoPedidos.Domain;
+using ResumoPedidos.Domain.Dtos;
 
 namespace ResumoPedidos.Data.Repositories;
 
@@ -12,11 +13,19 @@ public class ProdutoPedidoRepository : IProdutoPedidoRepository
         _context = context;
     }
 
-    public async Task<List<ProdutoPedido>> CreateProdutosPedidosAsync(IEnumerable<int> idsProduto, int idResumoPedido)
+    public async Task<List<ProdutoPedido>> CreateProdutosPedidosAsync(List<ProdutoResumoPedidoDto> produtos, int idResumoPedido)
     {
-        var novosRegistros = idsProduto
-            .Select(id => new ProdutoPedido() { IdProduto = id, IdResumoPedido = idResumoPedido }).ToList();
-
+        var novosRegistros = new List<ProdutoPedido>();
+        
+        foreach (var produto in produtos)
+        {
+            for (var qtde = 0; qtde < produto.Quantidade; qtde++)
+            {
+                var novoRegistro = new ProdutoPedido(){IdProduto = produto.IdProduto, IdResumoPedido = idResumoPedido};
+                novosRegistros.Add(novoRegistro);
+            }
+        }
+        
         await _context.AddRangeAsync(novosRegistros);
         await _context.SaveChangesAsync();
 

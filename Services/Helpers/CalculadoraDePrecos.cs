@@ -1,15 +1,19 @@
 using ResumoPedidos.Domain;
+using ResumoPedidos.Domain.Dtos;
 
 namespace ResumoPedidos.Services.Helpers
 {
     public class CalculadoraDePrecos
     {
-        public decimal ObterValorTotal(List<Produto> produtos)
+        public decimal ObterValorTotal(List<Produto> produtosBanco, CadastrarResumoPedidoDto dto)
         {
-            if (!produtos.Any()) return 0;
-            
-            var result = produtos.Select(p => p.Valor).Sum();
-            return result;
+            if (!produtosBanco.Any()) return 0;
+
+            var valorTotal = (from produto in dto.Produtos 
+                let valorProduto = produtosBanco.First(p => p.IdProduto == produto.IdProduto).Valor 
+                select valorProduto * produto.Quantidade).Sum();
+
+            return valorTotal;
         }
     }
 }

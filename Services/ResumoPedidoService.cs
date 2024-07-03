@@ -33,10 +33,10 @@ public class ResumoPedidoService : IResumoPedidoService
         {
             var idsProdutosDoPedido = dto.Produtos.Select(q => q.IdProduto);
             var produtosDoPedido = _produtoSevice.ObterProdutos(p => idsProdutosDoPedido.Contains(p.IdProduto));
-            var valorTotal = CalcularValorTotal(produtosDoPedido);
+            var valorTotal = CalcularValorTotal(produtosDoPedido, dto);
             var cliente = _clienteRepository.GetCliente(p => p.IdCliente == dto.IdCliente);
             var resumoPedidoNoBanco = _repository.CreateResumoPedido(cliente.IdCliente, valorTotal);
-            await _produtoResumoRepository.CreateProdutosPedidosAsync(idsProdutosDoPedido, resumoPedidoNoBanco.IdResumoPedido);
+            await _produtoResumoRepository.CreateProdutosPedidosAsync(dto.Produtos, resumoPedidoNoBanco.IdResumoPedido);
 
             var result = new ResumoPedidoResponseDto()
             {
@@ -103,9 +103,9 @@ public class ResumoPedidoService : IResumoPedidoService
         }
     }
     
-    public decimal CalcularValorTotal(List<Produto> produtos)
+    public decimal CalcularValorTotal(List<Produto> produtos, CadastrarResumoPedidoDto dto)
     {
         var calculadora = new CalculadoraDePrecos();
-        return calculadora.ObterValorTotal(produtos);
+        return calculadora.ObterValorTotal(produtos, dto);
     }
 }

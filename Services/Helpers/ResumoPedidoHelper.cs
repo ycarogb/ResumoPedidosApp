@@ -34,7 +34,7 @@ public class ResumoPedidoHelper
         foreach (var produto in produtos.Where(produto => !idsProdutosDoPedido.Contains(produto.IdProduto)))
         {
             var quantidadeNoPedido = await _produtoService.ObterQuantidadePorResumoPedidoAsync(idResumoPedido, produto.IdProduto);
-            stringBuilder.AppendLine($"{produto.Descricao} -- Quantidade: {quantidadeNoPedido}");
+            stringBuilder.AppendLine($"{produto.Descricao} -- Valor: {produto.Valor} -- Quantidade: {quantidadeNoPedido}");
             idsProdutosDoPedido.Add(produto.IdProduto);
         }
     }
