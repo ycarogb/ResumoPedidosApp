@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.ObjectModel;
 using ResumoPedidos.Domain;
@@ -24,7 +25,9 @@ public class ClienteController : ControllerBase
         return cliente;
     }
 
+    /*[Authorize] - Somente Autenticados podem usar controller*/
     [HttpGet("GetClientes")]
+    [Authorize]
     public List<Cliente> ObterClientes()
     {
         var clientes = _clienteService.ObterTodosOsClientes();
@@ -32,6 +35,7 @@ public class ClienteController : ControllerBase
     }
 
     [HttpPost("Cadastrar")]
+    [Authorize(Roles = "Dona, Empregada")]
     public Cliente Cadastrar(string nome, string bairro)
     {
         var novoCliente = _clienteService.CadastrarCliente(nome, bairro);

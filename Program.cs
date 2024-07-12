@@ -1,7 +1,11 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ResumoPedidos.Data;
 using ResumoPedidos.Data.Repositories;
 using ResumoPedidos.Services;
+using ResumoPedidos.Services.Autenticacao;
 using ResumoPedidos.Services.Helpers;
 
 
@@ -26,6 +30,30 @@ builder.Services.AddSwaggerGen(p =>
     p.ResolveConflictingActions(q => q.First());
 });
 
+builder.Services.AddControllersWithViews();
+var key = Encoding.ASCII.GetBytes(Settings.Secret);
+builder.Services.AddAuthentication(p =>
+{
+    /*Configura esquema de configuração*/
+    p.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    p.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(p =>
+{
+    p.RequireHttpsMetadata = false;
+    p.SaveToken = true;
+    p.TokenValidationParameters = new TokenValidationParameters
+    {
+        /*Validar a chave*/
+        ValidateIssuerSigningKey = true,
+        /*Qual chave validar*/
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+
+});
+
+
 var app = builder.Build();
 
 SeedDataBase.Initialize(app);
@@ -38,9 +66,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
